@@ -1,4 +1,4 @@
-import { Board } from "~/components/Board.tsx";
+import { Board } from "~/islands/Square.tsx";
 import { asset, Head } from "$fresh/runtime.ts";
 export default function Greet() {
   return (

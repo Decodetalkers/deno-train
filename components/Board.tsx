@@ -1,22 +1,22 @@
-import { Square } from "~/islands/Square.tsx";
+import { SquareBak } from "~/islands/Square.tsx";
 
 export function Board() {
   return (
     <>
       <div className="board-row">
-        <Square />
-        <Square />
-        <Square />
+        <SquareBak />
+        <SquareBak />
+        <SquareBak />
       </div>
       <div className="board-row">
-        <Square />
-        <Square />
-        <Square />
+        <SquareBak />
+        <SquareBak />
+        <SquareBak />
       </div>
       <div className="board-row">
-        <Square />
-        <Square />
-        <Square />
+        <SquareBak />
+        <SquareBak />
+        <SquareBak />
       </div>
     </>
   );
