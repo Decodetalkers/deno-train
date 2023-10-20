@@ -84,6 +84,7 @@ export function Game() {
     Array(9).fill(null),
   ]);
 
+  // Storage the steps
   const [currentMove, setCurrentMove] = useState(0);
 
   const currentSquares = history[currentMove];
@@ -95,10 +96,10 @@ export function Game() {
     setXIsNext(!xIsNext);
   }
 
+  // jumpTo steap
   function jumpTo(nextMove: number) {
     setCurrentMove(nextMove);
     setXIsNext(nextMove % 2 === 0);
-    // TODO
   }
 
   const moves = history.map((_, move) => {
