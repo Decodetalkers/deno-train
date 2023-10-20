@@ -1,6 +1,12 @@
-import { PageProps } from "$fresh/server.ts";
 import { Board } from "~/components/Board.tsx";
-
-export default function Greet(props: PageProps) {
-  return <Board />;
+import { asset, Head } from "$fresh/runtime.ts";
+export default function Greet() {
+  return (
+    <>
+      <Head>
+        <link rel="stylesheet" type="text/css" href={asset("style.css")} />
+      </Head>
+      <Board />
+    </>
+  );
 }

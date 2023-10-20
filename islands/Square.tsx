@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 
 export function Square() {
-  const [value, setValue] = useState<string>("_");
+  const [value, setValue] = useState<string | null>(null);
   const onClicked = () => {
     setValue("X");
   };
