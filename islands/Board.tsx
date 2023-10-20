@@ -20,13 +20,22 @@ function Square({ value, onSquareClicked }: SquareProp) {
 }
 
 export function Board() {
-  const [squares, setSquares] = useState<Array<number | string | null>>(
+  const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState<Array<string | null>>(
     Array(9).fill(null),
   );
   const handleClick = (index: number) => {
+    if (squares[index]) {
+      return;
+    }
     const nextSquares = squares.slice();
-    nextSquares[index] = "X";
+    if (xIsNext) {
+      nextSquares[index] = "X";
+    } else {
+      nextSquares[index] = "O";
+    }
     setSquares(nextSquares);
+    setXIsNext(!xIsNext);
   };
   return (
     <>
