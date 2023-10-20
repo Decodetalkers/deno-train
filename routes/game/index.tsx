@@ -6,7 +6,9 @@ export default function Greet() {
       <Head>
         <link rel="stylesheet" type="text/css" href={asset("style.css")} />
       </Head>
-      <Game />
+      <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
+        <Game />
+      </div>
     </>
   );
 }
