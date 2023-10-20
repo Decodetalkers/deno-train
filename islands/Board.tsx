@@ -30,22 +30,15 @@ function Square({ value, onSquareClicked }: SquareProp) {
   return <button className="square" onClick={onSquareClicked}>{value}</button>;
 }
 
-export function Board() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState<Array<string | null>>(
-    Array(9).fill(null),
-  );
+interface BoardProp {
+  xIsNext: boolean;
+  squares: Array<string | null>;
+  onPlay: (array: Array<string | null>) => void;
+}
 
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = "Winner: " + winner;
-  } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
-  }
-
+function Board({ xIsNext, squares, onPlay }: BoardProp) {
   const handleClick = (index: number) => {
-    if (squares[index]) {
+    if (squares[index] || calculateWinner(squares)) {
       return;
     }
     const nextSquares = squares.slice();
@@ -54,9 +47,15 @@ export function Board() {
     } else {
       nextSquares[index] = "O";
     }
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext);
+    onPlay(nextSquares);
   };
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
   return (
     <>
       <div className="status">{status}</div>
@@ -76,5 +75,54 @@ export function Board() {
         <Square value={squares[8]} onSquareClicked={() => handleClick(8)} />
       </div>
     </>
+  );
+}
+
+export function Game() {
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState<Array<Array<string | null>>>([
+    Array(9).fill(null),
+  ]);
+
+  const [currentMove, setCurrentMove] = useState(0);
+
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares: Array<string | null>) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+    setXIsNext(!xIsNext);
+  }
+
+  function jumpTo(nextMove: number) {
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+    // TODO
+  }
+
+  const moves = history.map((_, move) => {
+    let description;
+    if (move > 0) {
+      description = "Go to move #" + move;
+    } else {
+      description = "Go to game start";
+    }
+    return (
+      <li>
+        <button onClick={() => jumpTo(move)}>{description}</button>
+      </li>
+    );
+  });
+
+  return (
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className="game-info">
+        <ol>{moves}</ol>
+      </div>
+    </div>
   );
 }

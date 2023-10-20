@@ -1,4 +1,4 @@
-import { Board } from "~/islands/Board.tsx";
+import { Game } from "~/islands/Board.tsx";
 import { asset, Head } from "$fresh/runtime.ts";
 export default function Greet() {
   return (
@@ -6,7 +6,7 @@ export default function Greet() {
       <Head>
         <link rel="stylesheet" type="text/css" href={asset("style.css")} />
       </Head>
-      <Board />
+      <Game />
     </>
   );
 }
