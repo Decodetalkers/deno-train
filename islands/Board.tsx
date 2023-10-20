@@ -1,13 +1,24 @@
 import { useState } from "preact/hooks";
 import { JSX } from "preact/jsx-runtime";
 
-export function SquareBak() {
-  const [value, setValue] = useState<string | null>(null);
-  const onClicked = () => {
-    setValue("X");
-  };
-
-  return <button className="square" onClick={onClicked}>{value}</button>;
+function calculateWinner(squares: Array<string | null>) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
 }
 
 interface SquareProp {
@@ -24,6 +35,15 @@ export function Board() {
   const [squares, setSquares] = useState<Array<string | null>>(
     Array(9).fill(null),
   );
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
+
   const handleClick = (index: number) => {
     if (squares[index]) {
       return;
@@ -39,6 +59,7 @@ export function Board() {
   };
   return (
     <>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClicked={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClicked={() => handleClick(1)} />
