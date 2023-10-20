@@ -111,7 +111,9 @@ export function Game() {
     }
     return (
       <li>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button className="history" onClick={() => jumpTo(move)}>
+          {description}
+        </button>
       </li>
     );
   });

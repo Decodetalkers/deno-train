@@ -2,6 +2,19 @@
   box-sizing: border-box;
 }
 
+.history {
+  background-color: #4CAF50; /* Green */
+  border: 10px;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+}
+
 body {
   font-family: sans-serif;
   margin: 20px;
@@ -80,6 +93,7 @@ body {
 .status {
   margin-bottom: 10px;
 }
+
 .game {
   display: flex;
   flex-direction: row;
